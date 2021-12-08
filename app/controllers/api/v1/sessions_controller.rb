@@ -4,6 +4,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   private
 
   def respond_with(_resource, _opts = {})
+    p _resource, 'resour'
     user = User.find_by_email(sign_in_params[:email])
 
     if user&.valid_password?(sign_in_params[:password])
