@@ -31,13 +31,6 @@ ActiveRecord::Schema.define(version: 2021_12_08_230833) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "planes_users", id: false, force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "plane_id", null: false
-    t.index ["plane_id", "user_id"], name: "index_planes_users_on_plane_id_and_user_id"
-    t.index ["user_id", "plane_id"], name: "index_planes_users_on_user_id_and_plane_id"
-  end
-
   create_table "reservations", force: :cascade do |t|
     t.string "reservation_date"
     t.bigint "user_id", null: false
