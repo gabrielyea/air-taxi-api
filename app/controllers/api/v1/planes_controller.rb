@@ -3,7 +3,7 @@ class Api::V1::PlanesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    render json: current_user.planes
+    render json: Plane.all
   end
 
   def show
