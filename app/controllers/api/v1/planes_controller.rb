@@ -1,9 +1,8 @@
-class Api::V1::PlanesController < ApplicationController
+class Api::V1::PlanesController < Api::V1::BaseController
   before_action :set_plane, only: %i[show update destroy]
-  before_action :authenticate_user!
 
   def index
-    render json: current_user.planes
+    render json: Plane.all
   end
 
   def show
@@ -12,9 +11,8 @@ class Api::V1::PlanesController < ApplicationController
 
   def create
     @plane = Plane.new(plane_params)
-
     if @plane.save
-      render json: @plane, status: :created, location: @plane
+      render json: { data: @plane }, status: :created
     else
       render json: @plane.errors, status: :unprocessable_entity
     end
@@ -30,6 +28,7 @@ class Api::V1::PlanesController < ApplicationController
 
   def destroy
     @plane.destroy
+    render json: { message: 'Plane record deleted' }, status: :ok
   end
 
   private
