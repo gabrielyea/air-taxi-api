@@ -14,6 +14,7 @@ class Api::V1::ReservationsController < Api::V1::BaseController
 
   # POST /reservations
   def create
+    
     @reservation = Reservation.new(reservation_params)
 
     if @reservation.save
