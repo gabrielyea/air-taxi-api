@@ -5,7 +5,6 @@ devise_for :users,
                  sessions: 'api/v1/sessions',
                  registrations: 'api/v1/registrations'
              }
-  # devise_for :users
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
