@@ -8,10 +8,8 @@ devise_for :users,
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-      resources :users, only: [:index, :show, :create] do
-        resources :planes, only: [:index, :show, :create] do
-          resources :reservations, only: [:index, :show, :create]
-        end
+      resources :planes, only: [:index, :show, :create] do
+        resources :reservations, only: [:index, :show, :create]
       end
     end
   end
