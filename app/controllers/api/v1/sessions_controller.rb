@@ -21,7 +21,7 @@ class Api::V1::SessionsController < Devise::SessionsController
     render json: { data: UserSerializer.new(resource).serializable_hash[:data][:attributes] }, status: :ok
   end
 
-  def log_in_failure 
+  def log_in_failure
     render json: { errors: 'email or password is invalid' }, status: :unprocessable_entity
   end
 

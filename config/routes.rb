@@ -8,15 +8,11 @@ devise_for :users,
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-      resources :users do
-        resources :planes do
-          resources :reservations
+      resources :users, only: [:index, :show, :create] do
+        resources :planes, only: [:index, :show, :create] do
+          resources :reservations, only: [:index, :show, :create]
         end
       end
-    end
-    namespace :dev, defaults: {format: :json} do
-      get 'fetch_test_planes', to: 'services#fech_planes'
-      get 'fetch_test_reservations', to: 'services#fech_reservations'
     end
   end
 
