@@ -1,9 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/planes', type: :request do
-
   path '/api/v1/planes' do
-
     get('list planes') do
       tags 'Planes'
       response(200, 'successful') do
@@ -39,18 +37,6 @@ RSpec.describe 'api/v1/planes', type: :request do
         let(:plane) { { model: 'foo', description: 'bar', tour_price: '100', registration: 'XA123', cruise_speed: '100', picture: 'mypicture.com' } }
         run_test!
       end
-
-      # response(200, 'successful') do
-
-      #   # after do |example|
-      #   #   example.metadata[:response][:content] = {
-      #   #     'application/json' => {
-      #   #       example: JSON.parse(response.body, symbolize_names: true)
-      #   #     }
-      #   #   }
-      #   # end
-      #   # run_test!
-      # end
     end
   end
 

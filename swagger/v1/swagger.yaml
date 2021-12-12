@@ -77,14 +77,29 @@ paths:
         type: string
     get:
       summary: list reservations
+      tags:
+      - Reservations
       responses:
         '200':
           description: successful
     post:
-      summary: create reservation
+      summary: create reservations
+      tags:
+      - Reservations
+      parameters: []
       responses:
-        '200':
-          description: successful
+        '201':
+          description: Reservation created!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reserve_date:
+                  type: date
+              required:
+              - reserve_date
   "/api/v1/planes/{plane_id}/reservations/{id}":
     parameters:
     - name: plane_id
@@ -101,6 +116,8 @@ paths:
         type: string
     get:
       summary: show reservation
+      tags:
+      - Reservations
       responses:
         '200':
           description: successful
