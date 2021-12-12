@@ -12,6 +12,25 @@ paths:
           description: successful
     post:
       summary: create plane
+      parameters:
+      - name: model
+        in: path
+        description: Plane model
+        required: true
+        schema:
+          type: string
+      - name: description
+        in: path
+        description: Plane description
+        required: true
+        schema:
+          type: string
+      - name: tour_price
+        in: path
+        description: Tour price
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -20,24 +39,6 @@ paths:
     - name: id
       in: path
       description: id
-      required: true
-      schema:
-        type: string
-    - name: model
-      in: path
-      description: Plane model
-      required: true
-      schema:
-        type: string
-    - name: description
-      in: path
-      description: Plane description
-      required: true
-      schema:
-        type: string
-    - name: tour_price
-      in: path
-      description: Tour cost
       required: true
       schema:
         type: string
