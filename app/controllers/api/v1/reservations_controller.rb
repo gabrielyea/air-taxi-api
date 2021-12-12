@@ -1,6 +1,5 @@
-class Api::V1::ReservationsController < ApplicationController
+class Api::V1::ReservationsController < Api::V1::BaseController
   before_action :set_reservation, only: %i[show update destroy]
-  before_action :authenticate_user!
 
   # GET /reservations
   def index
@@ -16,9 +15,11 @@ class Api::V1::ReservationsController < ApplicationController
   # POST /reservations
   def create
     @reservation = Reservation.new(reservation_params)
+    @reservation.plane = Plane.find(reservation_params[:plane_id])
+    @reservation.user = current_user
 
     if @reservation.save
-      render json: @reservation, status: :created, location: @reservation
+      render json: @reservation, status: :created
     else
       render json: @reservation.errors, status: :unprocessable_entity
     end
@@ -47,6 +48,6 @@ class Api::V1::ReservationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def reservation_params
-    params.require(:reservation).permit(:reservation_date, :user_id, :plane_id)
+    params.require(:reservation).permit(:reserve_date, :user_id, :plane_id)
   end
 end
