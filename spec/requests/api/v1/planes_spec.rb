@@ -26,7 +26,7 @@ RSpec.describe 'api/v1/planes', type: :request do
         properties: {
           model: { type: :string },
           description: { type: :string },
-          tour_price: { type: :decimal }
+          tour_price: { type: :integer }
         },
         required: [ 'model', 'description', 'tour_price' ]
       }
