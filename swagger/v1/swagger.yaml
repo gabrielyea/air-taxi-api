@@ -29,7 +29,7 @@ paths:
                 description:
                   type: string
                 tour_price:
-                  type: decimal
+                  type: integer
               required:
               - model
               - description
