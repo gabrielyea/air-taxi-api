@@ -19,17 +19,34 @@ RSpec.describe 'api/v1/planes', type: :request do
     end
 
     post('create plane') do
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
+      tags 'Planes'
+      consumes 'application/json'
+      parameter name: :plane, in: :body, schema: {
+        type: :object,
+        properties: {
+          model: { type: :string },
+          description: { type: :string },
+          tour_price: { type: :decimal }
+        },
+        required: [ 'model', 'description', 'tour_price' ]
+      }
+      
+      response('201', 'blog created') do
+        let(:plane) { { model: 'foo', description: 'bar', tour_price: '100' } }
         run_test!
       end
+
+      # response(200, 'successful') do
+
+      #   # after do |example|
+      #   #   example.metadata[:response][:content] = {
+      #   #     'application/json' => {
+      #   #       example: JSON.parse(response.body, symbolize_names: true)
+      #   #     }
+      #   #   }
+      #   # end
+      #   # run_test!
+      # end
     end
   end
 
