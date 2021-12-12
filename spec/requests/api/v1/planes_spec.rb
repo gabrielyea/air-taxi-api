@@ -53,6 +53,42 @@ RSpec.describe 'api/v1/planes', type: :request do
         end
         run_test!
       end
+      response(200, 'successful') do
+        let(:model) { '123' }
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+      response(200, 'successful') do
+        let(:description) { '123' }
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
+      response(200, 'successful') do
+        let(:tour_price) { '123' }
+
+        after do |example|
+          example.metadata[:response][:content] = {
+            'application/json' => {
+              example: JSON.parse(response.body, symbolize_names: true)
+            }
+          }
+        end
+        run_test!
+      end
     end
 
     delete('delete plane') do
