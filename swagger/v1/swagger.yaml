@@ -7,6 +7,8 @@ paths:
   "/api/v1/planes":
     get:
       summary: list planes
+      tags:
+      - Planes
       responses:
         '200':
           description: successful
@@ -17,7 +19,7 @@ paths:
       parameters: []
       responses:
         '201':
-          description: blog created
+          description: Plane created!
       requestBody:
         content:
           application/json:
@@ -28,12 +30,21 @@ paths:
                   type: string
                 description:
                   type: string
+                registration:
+                  type: string
+                cruise_speed:
+                  type: integer
                 tour_price:
                   type: integer
+                picture:
+                  type: string
               required:
               - model
               - description
               - tour_price
+              - picture
+              - registration
+              - cruise_speed
   "/api/v1/planes/{id}":
     parameters:
     - name: id
@@ -44,11 +55,15 @@ paths:
         type: string
     get:
       summary: show plane
+      tags:
+      - Planes
       responses:
         '200':
           description: successful
     delete:
       summary: delete plane
+      tags:
+      - Planes
       responses:
         '200':
           description: successful

@@ -5,6 +5,7 @@ RSpec.describe 'api/v1/planes', type: :request do
   path '/api/v1/planes' do
 
     get('list planes') do
+      tags 'Planes'
       response(200, 'successful') do
 
         after do |example|
@@ -26,13 +27,16 @@ RSpec.describe 'api/v1/planes', type: :request do
         properties: {
           model: { type: :string },
           description: { type: :string },
-          tour_price: { type: :integer }
+          registration: { type: :string },
+          cruise_speed: { type: :integer },
+          tour_price: { type: :integer },
+          picture: { type: :string}
         },
-        required: [ 'model', 'description', 'tour_price' ]
+        required: [ 'model', 'description', 'tour_price', 'picture', 'registration', 'cruise_speed' ]
       }
       
-      response('201', 'blog created') do
-        let(:plane) { { model: 'foo', description: 'bar', tour_price: '100' } }
+      response('201', 'Plane created!') do
+        let(:plane) { { model: 'foo', description: 'bar', tour_price: '100', registration: 'XA123', cruise_speed: '100', picture: 'mypicture.com' } }
         run_test!
       end
 
@@ -55,6 +59,7 @@ RSpec.describe 'api/v1/planes', type: :request do
     parameter name: 'id', in: :path, type: :string, description: 'id'
 
     get('show plane') do
+      tags 'Planes'
       response(200, 'successful') do
         let(:id) { '123' }
 
@@ -70,6 +75,7 @@ RSpec.describe 'api/v1/planes', type: :request do
     end
 
     delete('delete plane') do
+      tags 'Planes'
       response(200, 'successful') do
         let(:id) { '123' }
 
