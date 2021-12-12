@@ -38,6 +38,8 @@ class Api::V1::PlanesController < Api::V1::BaseController
   end
 
   def plane_params
-    params.require(:plane).permit(:model, :registration, :description, :cruise_speed, :tour_price, :reservation_id)
+    params.require(:plane).permit(
+      :model, :registration, :description, :cruise_speed, :tour_price, :reservation_id, :picture
+    )
   end
 end

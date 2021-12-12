@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
 devise_for :users,
              controllers: {
                  sessions: 'api/v1/sessions',
@@ -8,7 +10,7 @@ devise_for :users,
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-      resources :planes, only: [:index, :show, :create] do
+      resources :planes, only: [:index, :show, :create, :destroy] do
         resources :reservations, only: [:index, :show, :create]
       end
     end
