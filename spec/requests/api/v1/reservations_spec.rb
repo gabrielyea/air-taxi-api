@@ -27,7 +27,7 @@ RSpec.describe 'api/v1/reservations', type: :request do
       parameter name: :reservation, in: :body, schema: {
         type: :object,
         properties: {
-          reserve_date: { type: :date }
+          reserve_date: { type: :string }
         },
         required: [ 'reserve_date' ]
       }

@@ -97,7 +97,7 @@ paths:
               type: object
               properties:
                 reserve_date:
-                  type: date
+                  type: string
               required:
               - reserve_date
   "/api/v1/planes/{plane_id}/reservations/{id}":
