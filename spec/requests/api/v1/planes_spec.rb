@@ -19,9 +19,6 @@ RSpec.describe 'api/v1/planes', type: :request do
     end
 
     post('create plane') do
-      parameter name: 'model', in: :path, type: :string, description: 'Plane model'
-      parameter name: 'description', in: :path, type: :string, description: 'Plane description'
-      parameter name: 'tour_price', in: :path, type: :string, description: 'Tour price'
       response(200, 'successful') do
 
         after do |example|
