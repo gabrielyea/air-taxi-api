@@ -70,42 +70,76 @@ paths:
   "/api/signup/cancel":
     get:
       summary: cancel registration
+      tags:
+      - Registration
       responses:
         '200':
           description: successful
   "/api/signup/sign_up":
     get:
       summary: new registration
+      tags:
+      - Registration
       responses:
         '200':
           description: successful
   "/api/signup/edit":
     get:
       summary: edit registration
+      tags:
+      - Registration
       responses:
         '200':
           description: successful
   "/api/signup":
     patch:
       summary: update registration
+      tags:
+      - Registration
       responses:
         '200':
           description: successful
     put:
       summary: update registration
+      tags:
+      - Registration
       responses:
         '200':
           description: successful
     delete:
       summary: delete registration
+      tags:
+      - Registration
       responses:
         '200':
           description: successful
     post:
       summary: create registration
+      tags:
+      - Registration
+      parameters: []
       responses:
-        '200':
-          description: successful
+        '201':
+          description: You are login!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - email
+              - password
+              - password_confirmation
+              - name
   "/api/v1/planes/{plane_id}/reservations":
     parameters:
     - name: plane_id
@@ -163,17 +197,37 @@ paths:
   "/api/login":
     get:
       summary: new session
+      tags:
+      - Session
       responses:
         '200':
           description: successful
     post:
       summary: create session
+      tags:
+      - Session
+      parameters: []
       responses:
-        '200':
-          description: successful
+        '201':
+          description: You are login!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
   "/api/logout":
     delete:
       summary: delete session
+      tags:
+      - Session
       responses:
         '200':
           description: successful
