@@ -67,6 +67,45 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/signup/cancel":
+    get:
+      summary: cancel registration
+      responses:
+        '200':
+          description: successful
+  "/api/signup/sign_up":
+    get:
+      summary: new registration
+      responses:
+        '200':
+          description: successful
+  "/api/signup/edit":
+    get:
+      summary: edit registration
+      responses:
+        '200':
+          description: successful
+  "/api/signup":
+    patch:
+      summary: update registration
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update registration
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete registration
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create registration
+      responses:
+        '200':
+          description: successful
   "/api/v1/planes/{plane_id}/reservations":
     parameters:
     - name: plane_id
@@ -118,6 +157,23 @@ paths:
       summary: show reservation
       tags:
       - Reservations
+      responses:
+        '200':
+          description: successful
+  "/api/login":
+    get:
+      summary: new session
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create session
+      responses:
+        '200':
+          description: successful
+  "/api/logout":
+    delete:
+      summary: delete session
       responses:
         '200':
           description: successful
