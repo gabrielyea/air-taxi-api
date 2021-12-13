@@ -14,6 +14,8 @@ gem 'devise'
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
 gem 'puma', '~> 5.0'
+gem 'rswag-api'
+gem 'rswag-ui'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -39,7 +41,7 @@ group :development, :test do
   gem 'faker'
   gem 'jsonapi-rspec'
   gem 'rspec-rails', '~> 3.5'
-  gem 'rswag'
+  gem 'rswag-specs'
 end
 
 group :development do
