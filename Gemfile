@@ -38,6 +38,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'jsonapi-rspec'
   gem 'rspec-rails', '~> 3.5'
 end
 
