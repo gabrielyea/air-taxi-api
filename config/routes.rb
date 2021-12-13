@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   # mount Rswag::Api::Engine => '/api-docs'
   
   devise_for :users,
-            # path: '',
-            # path_names: {
-            #   sign_in: 'api/login',
-            #   sign_out: 'api/logout',
-            #   registration: 'api/signup'
-            # },
+            path: '',
+            path_names: {
+              sign_in: 'api/login',
+              sign_out: 'api/logout',
+              registration: 'api/signup'
+            },
              controllers: {
                  sessions: 'api/v1/sessions',
                  registrations: 'api/v1/registrations'
