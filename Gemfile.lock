@@ -213,10 +213,6 @@ GEM
       rspec-mocks (~> 3.9.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.4)
-    rswag (2.4.0)
-      rswag-api (= 2.4.0)
-      rswag-specs (= 2.4.0)
-      rswag-ui (= 2.4.0)
     rswag-api (2.4.0)
       railties (>= 3.1, < 7.0)
     rswag-specs (2.4.0)
@@ -285,7 +281,9 @@ DEPENDENCIES
   rack-cors
   rails (~> 6.1.4, >= 6.1.4.1)
   rspec-rails (~> 3.5)
-  rswag
+  rswag-api
+  rswag-specs
+  rswag-ui
   rubocop (>= 1.0, < 2.0)
   spring
   tzinfo-data

@@ -18,6 +18,7 @@ class Api::V1::SessionsController < Devise::SessionsController
   end
 
   def log_in_success
+    # p resource
     render json: { data: UserSerializer.new(resource).serializable_hash[:data][:attributes] }, status: :ok
   end
 
