@@ -48,6 +48,6 @@ class Api::V1::ReservationsController < Api::V1::BaseController
 
   # Only allow a list of trusted parameters through.
   def reservation_params
-    params.require(:reservation).permit(:reserve_date, :user_id, :plane_id)
+    params.require(:reservation).permit(:reserve_date).merge(plane_id: params[:plane_id])
   end
 end

@@ -10,7 +10,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    render json: { message: 'Signed up sucessfully.' }
+    render json: { data: UserSerializer.new(resource).serializable_hash[:data][:attributes] }, status: :ok
   end
 
   def register_failed
