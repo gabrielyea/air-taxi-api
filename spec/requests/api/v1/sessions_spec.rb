@@ -2,27 +2,19 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/sessions', type: :request do
 
+  before :each do
+    @user = create(:user)
+    login_with_api(@user)
+    @authorization = response.header['Authorization']
+  end
+
+  let(:Authorization) { @authorization }
+
   path '/api/login' do
-
-    get('new session') do
-      tags 'Session'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
     post('create session') do
       tags 'Session'
       consumes 'application/json'
-      parameter name: :login, in: :body, schema: {
+      parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {
           email: { type: :string },
@@ -30,10 +22,19 @@ RSpec.describe 'api/v1/sessions', type: :request do
         },
         required: [ 'email', 'password' ]
       }
-      
-      response('201', 'You are login!') do
-        let(:login) { { email: '123456@gmail.com', password: '123456' } }
-        run_test!
+      # let(:user) {create(:user)}
+      # response 200, 'success' do
+      #   run_test! do |response| 
+   
+      #   end
+      # end
+
+      it 'signs in the correct user' do
+        expect(body_json['data']['name']).to eq(@user['name'])
+      end
+
+      it 'has an authorization token' do
+        expect(response['Authorization']).to be_present
       end
     end
   end
@@ -42,17 +43,17 @@ RSpec.describe 'api/v1/sessions', type: :request do
 
     delete('delete session') do
       tags 'Session'
-      response(200, 'successful') do
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
+      parameter name: 'id', in: :path, type: :string, description: 'id'
 
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
+        response(200, 'successful') do
+          let(:id) { @user.id }
+          run_test! do |response|
+            expect(body_json['message']).to eq('You are logged out.')
+          end
         end
-        run_test!
       end
     end
-  end
 end

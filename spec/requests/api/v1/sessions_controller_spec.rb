@@ -17,7 +17,6 @@ describe 'api/v1/sessions_controller', type: :request do
           password: @user.password
         }
       }
-      p @user
     end
 
     it 'returns 200' do
