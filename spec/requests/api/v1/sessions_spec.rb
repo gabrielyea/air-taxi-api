@@ -22,20 +22,13 @@ RSpec.describe 'api/v1/sessions', type: :request do
         },
         required: [ 'email', 'password' ]
       }
-      # let(:user) {create(:user)}
-      # response 200, 'success' do
-      #   run_test! do |response| 
-   
-      #   end
-      # end
 
-      it 'signs in the correct user' do
+      let(:user) {{user: {email: @user.email, password: @user.password }}}
+      response(200, 'Log in success') do
+      run_test! do |response|
         expect(body_json['data']['name']).to eq(@user['name'])
       end
-
-      it 'has an authorization token' do
-        expect(response['Authorization']).to be_present
-      end
+    end
     end
   end
 

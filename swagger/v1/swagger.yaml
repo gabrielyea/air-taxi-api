@@ -223,6 +223,28 @@ paths:
       responses:
         '200':
           description: successful
+  "/api/login":
+    post:
+      summary: create session
+      tags:
+      - Session
+      parameters: []
+      responses:
+        '200':
+          description: success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
   "/api/logout":
     delete:
       summary: delete session
