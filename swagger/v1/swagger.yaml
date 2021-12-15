@@ -96,81 +96,55 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/signup/cancel":
-    get:
-      summary: cancel registration
-      tags:
-      - Registration
-      responses:
-        '200':
-          description: successful
-  "/api/signup/sign_up":
-    get:
+  "/api/signup":
+    parameters:
+    - name: user
+      in: body
+      schema:
+        type: object
+        properties:
+          name:
+            type: string
+          email:
+            type: string
+          password:
+            type: string
+          password_confrimation:
+            type: string
+        required:
+        - name
+        - email
+        - password
+        - password_confirmation
+    post:
       summary: new registration
       tags:
       - Registration
       responses:
         '200':
-          description: successful
-  "/api/signup/edit":
-    get:
-      summary: edit registration
-      tags:
-      - Registration
-      responses:
-        '200':
-          description: successful
-  "/api/signup":
-    patch:
-      summary: update registration
-      tags:
-      - Registration
-      responses:
-        '200':
-          description: successful
-    put:
-      summary: update registration
-      tags:
-      - Registration
-      responses:
-        '200':
-          description: successful
+          description: User created with valid token
+        '422':
+          description: Email already exists
     delete:
       summary: delete registration
       tags:
       - Registration
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
-    post:
-      summary: create registration
-      tags:
-      - Registration
-      parameters: []
-      responses:
-        '201':
-          description: You are login!
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
-                password_confirmation:
-                  type: string
-              required:
-              - email
-              - password
-              - password_confirmation
-              - name
   "/api/v1/planes/{plane_id}/reservations":
     parameters:
+    - name: Authorization
+      in: header
+      schema:
+        type: string
     - name: plane_id
       in: path
       description: plane_id
@@ -181,6 +155,8 @@ paths:
       summary: list reservations
       tags:
       - Reservations
+      security:
+      - Bearer: {}
       responses:
         '200':
           description: successful
@@ -204,15 +180,19 @@ paths:
               - reserve_date
   "/api/v1/planes/{plane_id}/reservations/{id}":
     parameters:
-    - name: plane_id
-      in: path
-      description: plane_id
-      required: true
+    - name: Authorization
+      in: header
       schema:
         type: string
     - name: id
       in: path
       description: id
+      required: true
+      schema:
+        type: string
+    - name: plane_id
+      in: path
+      description: plane_id
       required: true
       schema:
         type: string
@@ -231,7 +211,7 @@ paths:
       parameters: []
       responses:
         '200':
-          description: success
+          description: Log in success
       requestBody:
         content:
           application/json:
