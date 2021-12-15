@@ -1,6 +1,12 @@
 class Api::V1::RegistrationsController < Devise::RegistrationsController
   respond_to :json
 
+  def destroy
+    resource.destroy
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    render json: { message: 'User deleted' }, status: :ok
+  end
+
   private
 
   def respond_with(resource, _opts = {})

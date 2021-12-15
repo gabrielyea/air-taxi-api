@@ -2,32 +2,28 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/registrations', type: :request do
 
-  before (:each) do
-    @user = create(:user)
-    # p @user
-    login_with_api(@user)
-    # @authorization = response.header['Authorization']
-  end
-
-  # let(:Authorization) { @authorization }
-
   path '/api/signup' do
+    before do
+      @user = create(:user)
+    end
+
+    parameter name: :user, in: :body, schema: {
+      type: :object,
+      properties: {
+        name: { type: :string },
+        email: { type: :string },
+        password: { type: :string },
+        password_confrimation: { type: :string }
+      },
+      required: [ 'name', 'email', 'password', 'password_confirmation' ]
+    }
 
     post('new registration') do
       tags 'Registration'
       consumes 'application/json'
-      parameter name: :user, in: :body, schema: {
-        type: :object,
-        properties: {
-          name: { type: :string },
-          email: { type: :string },
-          password: { type: :string },
-          password_confrimation: { type: :string }
-        },
-        required: [ 'name', 'email', 'password', 'password_confirmation' ]
-      }
+      
       let(:user) { { user: {
-        name: "dan21223",
+        name: "dan1234",
         email: "dan2@gmail.com",
         password: "123456",
         password_confirmation: "123456"
@@ -40,70 +36,47 @@ RSpec.describe 'api/v1/registrations', type: :request do
         end
       end
     end
+
+    post('new registration') do
+      tags 'Registration'
+      consumes 'application/json'
+      
+      let(:user) { { user: {
+        name: "dan21223",
+        email: @user.email,
+        password: "123456",
+        password_confirmation: "123456"
+        }
+      }}
+
+      response(422, 'Email already exists') do
+        run_test! do |response|
+          expect(body_json['message']).to eq('Something went wrong.')
+        end
+      end
+    end
   end
 
-  # path '/api/signup/edit' do
+  path '/api/signup' do
+    before do
+      @user = create(:user)
+      @user
+      login_with_api(@user)
+      @authorization = response.header['Authorization']
+    end
+    let(:Authorization) { @authorization }
 
-  #   get('edit registration') do
-  #     tags 'Registration'
-  #     response(200, 'successful') do
+    delete('delete registration') do
+      tags 'Registration'
+      consumes 'application/json'
+      security [Bearer: {}]
+      parameter name: :Authorization, in: :header, type: :string
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
-
-  # path '/api/signup' do
-
-  #   patch('update registration') do
-  #     tags 'Registration'
-  #     response(200, 'successful') do
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   put('update registration') do
-  #     tags 'Registration'
-  #     response(200, 'successful') do
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-
-  #   delete('delete registration') do
-  #     tags 'Registration'
-  #     response(200, 'successful') do
-
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
+      response(200, 'successful') do
+        run_test! do |response|
+          expect(body_json['message']).to eq('User deleted')
+        end
+      end
+    end
+  end
 end
