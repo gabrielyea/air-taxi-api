@@ -9,6 +9,13 @@ paths:
       summary: list planes
       tags:
       - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -16,10 +23,18 @@ paths:
       summary: create plane
       tags:
       - Planes
-      parameters: []
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '201':
           description: Plane created!
+        '422':
+          description: invalid request
       requestBody:
         content:
           application/json:
@@ -57,6 +72,13 @@ paths:
       summary: show plane
       tags:
       - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -64,6 +86,13 @@ paths:
       summary: delete plane
       tags:
       - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -194,40 +223,24 @@ paths:
       responses:
         '200':
           description: successful
-  "/api/login":
-    get:
-      summary: new session
-      tags:
-      - Session
-      responses:
-        '200':
-          description: successful
-    post:
-      summary: create session
-      tags:
-      - Session
-      parameters: []
-      responses:
-        '201':
-          description: You are login!
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-              required:
-              - email
-              - password
   "/api/logout":
     delete:
       summary: delete session
       tags:
       - Session
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
       responses:
         '200':
           description: successful
@@ -235,4 +248,4 @@ servers:
 - url: https://{defaultHost}
   variables:
     defaultHost:
-      default: air-taxi.herokuapp.com
+      default: www.example.com
