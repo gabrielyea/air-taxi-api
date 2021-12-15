@@ -2,125 +2,108 @@ require 'swagger_helper'
 
 RSpec.describe 'api/v1/registrations', type: :request do
 
-  path '/api/signup/cancel' do
-
-    get('cancel registration') do
-      tags 'Registration'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
+  before (:each) do
+    @user = create(:user)
+    # p @user
+    login_with_api(@user)
+    # @authorization = response.header['Authorization']
   end
 
-  path '/api/signup/sign_up' do
-
-    get('new registration') do
-      tags 'Registration'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
-
-  path '/api/signup/edit' do
-
-    get('edit registration') do
-      tags 'Registration'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-  end
+  # let(:Authorization) { @authorization }
 
   path '/api/signup' do
 
-    patch('update registration') do
-      tags 'Registration'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    put('update registration') do
-      tags 'Registration'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    delete('delete registration') do
-      tags 'Registration'
-      response(200, 'successful') do
-
-        after do |example|
-          example.metadata[:response][:content] = {
-            'application/json' => {
-              example: JSON.parse(response.body, symbolize_names: true)
-            }
-          }
-        end
-        run_test!
-      end
-    end
-
-    post('create registration') do
+    post('new registration') do
       tags 'Registration'
       consumes 'application/json'
-      parameter name: :signup, in: :body, schema: {
+      parameter name: :user, in: :body, schema: {
         type: :object,
         properties: {
           name: { type: :string },
           email: { type: :string },
           password: { type: :string },
-          password_confirmation: { type: :string },
+          password_confrimation: { type: :string }
         },
-        required: [ 'email', 'password', 'password_confirmation', 'name' ]
+        required: [ 'name', 'email', 'password', 'password_confirmation' ]
       }
-      
-      response('201', 'You are login!') do
-        let(:signup) { { name: 'testname', email: '123456@gmail.com', password: '123456', password_confirmation: '123456' } }
-        run_test!
+      let(:user) { { user: {
+        name: "dan21223",
+        email: "dan2@gmail.com",
+        password: "123456",
+        password_confirmation: "123456"
+        }
+      }}
+
+      response(200, 'User created with valid token') do
+        run_test! do |response|
+          expect(response.header['Authorization']).to be_present
+        end
       end
     end
   end
+
+  # path '/api/signup/edit' do
+
+  #   get('edit registration') do
+  #     tags 'Registration'
+  #     response(200, 'successful') do
+
+  #       after do |example|
+  #         example.metadata[:response][:content] = {
+  #           'application/json' => {
+  #             example: JSON.parse(response.body, symbolize_names: true)
+  #           }
+  #         }
+  #       end
+  #       run_test!
+  #     end
+  #   end
+  # end
+
+  # path '/api/signup' do
+
+  #   patch('update registration') do
+  #     tags 'Registration'
+  #     response(200, 'successful') do
+
+  #       after do |example|
+  #         example.metadata[:response][:content] = {
+  #           'application/json' => {
+  #             example: JSON.parse(response.body, symbolize_names: true)
+  #           }
+  #         }
+  #       end
+  #       run_test!
+  #     end
+  #   end
+
+  #   put('update registration') do
+  #     tags 'Registration'
+  #     response(200, 'successful') do
+
+  #       after do |example|
+  #         example.metadata[:response][:content] = {
+  #           'application/json' => {
+  #             example: JSON.parse(response.body, symbolize_names: true)
+  #           }
+  #         }
+  #       end
+  #       run_test!
+  #     end
+  #   end
+
+  #   delete('delete registration') do
+  #     tags 'Registration'
+  #     response(200, 'successful') do
+
+  #       after do |example|
+  #         example.metadata[:response][:content] = {
+  #           'application/json' => {
+  #             example: JSON.parse(response.body, symbolize_names: true)
+  #           }
+  #         }
+  #       end
+  #       run_test!
+  #     end
+  #   end
 end
