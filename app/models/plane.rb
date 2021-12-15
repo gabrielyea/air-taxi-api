@@ -7,4 +7,5 @@ class Plane < ApplicationRecord
   validates :description, presence: true
   validates :cruise_speed, presence: true
   validates :tour_price, presence: true
+  validates :picture, presence: true
 end
