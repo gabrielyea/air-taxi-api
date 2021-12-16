@@ -1,23 +1,26 @@
 Rails.application.routes.draw do
 
-devise_for :users,
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
+  
+  devise_for :users,
+            defaults: { format: :json },
+            path: '',
+            path_names: {
+              sign_in: 'api/login',
+              sign_out: 'api/logout',
+              registration: 'api/signup'
+            },
              controllers: {
                  sessions: 'api/v1/sessions',
                  registrations: 'api/v1/registrations'
              }
-  # devise_for :users
 
   namespace :api do
     namespace :v1, defaults: {format: :json} do
-      resources :users do
-        resources :planes do
-          resources :reservations
-        end
+      resources :planes, only: [:index, :show, :create, :destroy] do
+        resources :reservations, only: [:index, :show, :create]
       end
-    end
-    namespace :dev, defaults: {format: :json} do
-      get 'fetch_test_planes', to: 'services#fech_planes'
-      get 'fetch_test_reservations', to: 'services#fech_reservations'
     end
   end
 

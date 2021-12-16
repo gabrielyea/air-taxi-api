@@ -1,0 +1,273 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/planes":
+    get:
+      summary: list planes
+      tags:
+      - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create plane
+      tags:
+      - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Plane created!
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                description:
+                  type: string
+                registration:
+                  type: string
+                cruise_speed:
+                  type: integer
+                tour_price:
+                  type: integer
+                picture:
+                  type: string
+              required:
+              - model
+              - description
+              - tour_price
+              - picture
+              - registration
+              - cruise_speed
+  "/api/v1/planes/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show plane
+      tags:
+      - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete plane
+      tags:
+      - Planes
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+  "/api/signup/cancel":
+    get:
+      summary: cancel registration
+      tags:
+      - Registration
+      responses:
+        '200':
+          description: successful
+  "/api/signup/sign_up":
+    get:
+      summary: new registration
+      tags:
+      - Registration
+      responses:
+        '200':
+          description: successful
+  "/api/signup/edit":
+    get:
+      summary: edit registration
+      tags:
+      - Registration
+      responses:
+        '200':
+          description: successful
+  "/api/signup":
+    patch:
+      summary: update registration
+      tags:
+      - Registration
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: update registration
+      tags:
+      - Registration
+      responses:
+        '200':
+          description: successful
+    delete:
+      summary: delete registration
+      tags:
+      - Registration
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create registration
+      tags:
+      - Registration
+      parameters: []
+      responses:
+        '201':
+          description: You are login!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                password_confirmation:
+                  type: string
+              required:
+              - email
+              - password
+              - password_confirmation
+              - name
+  "/api/v1/planes/{plane_id}/reservations":
+    parameters:
+    - name: plane_id
+      in: path
+      description: plane_id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: list reservations
+      tags:
+      - Reservations
+      responses:
+        '200':
+          description: successful
+    post:
+      summary: create reservations
+      tags:
+      - Reservations
+      parameters: []
+      responses:
+        '201':
+          description: Reservation created!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reserve_date:
+                  type: string
+              required:
+              - reserve_date
+  "/api/v1/planes/{plane_id}/reservations/{id}":
+    parameters:
+    - name: plane_id
+      in: path
+      description: plane_id
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show reservation
+      tags:
+      - Reservations
+      responses:
+        '200':
+          description: successful
+  "/api/login":
+    post:
+      summary: create session
+      tags:
+      - Session
+      parameters: []
+      responses:
+        '200':
+          description: success
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/api/logout":
+    delete:
+      summary: delete session
+      tags:
+      - Session
+      security:
+      - Bearer: {}
+      parameters:
+      - name: Authorization
+        in: header
+        schema:
+          type: string
+      - name: id
+        in: path
+        description: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

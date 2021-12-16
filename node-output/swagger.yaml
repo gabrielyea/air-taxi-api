@@ -1,0 +1,57 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "API V1",
+    "version" : "v1"
+  },
+  "servers" : [ {
+    "url" : "https://{defaultHost}",
+    "variables" : {
+      "defaultHost" : {
+        "default" : "www.example.com"
+      }
+    }
+  } ],
+  "paths" : {
+    "/api/v1/planes" : {
+      "get" : {
+        "summary" : "list planes",
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "create plane",
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          }
+        }
+      }
+    },
+    "/api/v1/planes/{id}" : {
+      "get" : {
+        "summary" : "show plane",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "id",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          }
+        }
+      }
+    }
+  },
+  "components" : { }
+}
