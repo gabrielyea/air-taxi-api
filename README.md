@@ -1,5 +1,5 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
-# Hello rails back end! 
+# Air Taxi! 
 Simple app that generates random messages on API endpoint
 
 ##  Built With :hammer:
@@ -12,7 +12,7 @@ To get a local copy up and running follow these simple steps:
 
 1. Clone it using git command:
 ```ruby
-git clone git@github.com:gabrielyea/hello-rails-back-end.git
+git clone git@github.com:gabrielyea/air-taxi-api.git
 ```
 
 **Run in development (locally)**
